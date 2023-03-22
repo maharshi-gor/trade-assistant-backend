@@ -1,11 +1,11 @@
 import AddressDto from "./address-dto";
 import ContactDto from "./contact-dto";
 
-export default interface AccountDto {
+export default class AccountDto {
   id?: string;
-  type: string;
+  type!: string;
   opening_balance?: number;
   gstin?: string;
-  addressData: AddressDto;
-  contactData: ContactDto;
+  addressData!: AddressDto;
+  contactData!: ContactDto;
 }

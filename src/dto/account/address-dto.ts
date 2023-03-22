@@ -1,4 +1,4 @@
-export default interface AddressDto {
+export default class AddressDto {
   id?: string;
   add1?: string;
   add2?: string;

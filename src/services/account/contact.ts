@@ -5,35 +5,32 @@ import ContactDto from "../../dto/account/contact-dto";
 
 const saveContact = async (
   contactData: any,
-  transaction?: any
+  transaction: any
 ): Promise<ContactDto> => {
-  const contact = new Contact();
-
-  populateObject(contactData, contact);
-
-  let result: ContactDto = new ContactDto();
+  const contact = populateObject(contactData, Contact);
 
   if (!contact.id || !isValidUUID(contact.id)) {
     contact.id = uuidv4();
 
-    populateObject(
+    return populateObject(
       (await Contact.create(contact.dataValues, { transaction })).dataValues,
-      result
+      ContactDto
     );
-  } else {
-    await Contact.update(contact.dataValues, {
-      where: {
-        id: contact.id
-      },
-      transaction
-    });
-    let value = await Contact.findByPk(contact.id);
-    if (value instanceof Contact) {
-      populateObject(value.dataValues, result);
-    }
   }
 
-  return result;
+  await Contact.update(contact.dataValues, {
+    where: {
+      id: contact.id
+    },
+    transaction
+  });
+
+  let value = await Contact.findByPk(contact.id);
+  if (value instanceof Contact) {
+    return populateObject(value.dataValues, ContactDto);
+  }
+
+  return new ContactDto();
 };
 
 export default {

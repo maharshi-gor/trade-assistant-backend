@@ -1,4 +1,6 @@
-export const populateObject = (source: any, target: any) => {
-  Object.assign(target, source);
-  return target;
+export const populateObject = <S extends {}, T extends {}>(
+  source: S,
+  target: { new (): T }
+): T => {
+  return Object.assign(new target(), source);
 };
