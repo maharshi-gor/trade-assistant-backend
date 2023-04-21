@@ -49,26 +49,31 @@ const saveAccount = async (accountData: AccountDto): Promise<AccountDto> => {
 };
 
 const fetchAccount = async (accountId: string): Promise<AccountDto> => {
-  const account = await Account.findByPk(accountId, {
-    include: [
-      {
-        model: Contact,
-        as: "contact"
-      },
-      {
-        model: Address,
-        as: "address"
-      }
-    ]
-  });
-  const result = JSON.parse(JSON.stringify(account, null, 2));
-  if (account instanceof Account) {
-    const accountData = populateObject(result, AccountDto);
-    accountData.contactData = populateObject(result.contact, ContactDto);
-    accountData.addressData = populateObject(result.address, AddressDto);
-    return accountData;
+  try {
+    const account = await Account.findByPk(accountId, {
+      include: [
+        {
+          model: Contact,
+          as: "contact"
+        },
+        {
+          model: Address,
+          as: "address"
+        }
+      ]
+    });
+    const result = JSON.parse(JSON.stringify(account, null, 2));
+    if (account instanceof Account) {
+      const accountData = populateObject(result, AccountDto);
+      accountData.contactData = populateObject(result.contact, ContactDto);
+      accountData.addressData = populateObject(result.address, AddressDto);
+      return accountData;
+    }
+    return new AccountDto();
+  } catch (error) {
+    console.error(error);
+    return new AccountDto();
   }
-  return new AccountDto();
 };
 
 export default {
