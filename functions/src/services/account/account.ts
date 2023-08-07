@@ -13,11 +13,11 @@ const saveAccount = async (accountData: AccountDto): Promise<AccountDto> => {
 
   const id = await db.sequelize.transaction(async (transaction: any) => {
     const contact = await contactService.saveContact(
-      accountData.contactData,
+      accountData.contact,
       transaction
     );
     const address = await addressService.saveAddress(
-      accountData.addressData,
+      accountData.address,
       transaction
     );
     account.contact_id = contact.id!;

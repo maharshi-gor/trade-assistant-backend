@@ -6,6 +6,6 @@ export default class AccountDto {
   type!: string;
   opening_balance?: number;
   gstin?: string;
-  addressData!: AddressDto;
-  contactData!: ContactDto;
+  address!: AddressDto;
+  contact!: ContactDto;
 }
