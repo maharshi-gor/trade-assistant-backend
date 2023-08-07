@@ -4,4 +4,6 @@ export default class ContactDto {
   mobile?: string;
   phone?: string;
   email?: string;
+  account_id?: string;
+  gst_in?: string;
 }
