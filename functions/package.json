@@ -9,6 +9,7 @@
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
+    "dev": "nodemon -e ts --exec 'npm run serve'",
     "model": "sequelize-auto -o \"./models\" -d trade-assistant -h 127.0.0.1 -u root -p 3306 -x aone1234 -e mysql -l ts"
   },
   "engines": {
