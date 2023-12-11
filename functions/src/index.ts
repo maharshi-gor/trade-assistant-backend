@@ -1,4 +1,15 @@
 import server from "./server";
-import * as functions from "firebase-functions";
+import { onRequest } from "firebase-functions/v2/https";
+import { setGlobalOptions } from "firebase-functions/v2/options";
 
-exports.app = functions.https.onRequest(server);
+// let runTimeOpts = {
+//   vpcConnector: "e-invoice-connector",
+//   vpcConnectorEgressSettings: "ALL_TRAFFIC"
+// } as functions.RuntimeOptions;
+
+setGlobalOptions({
+  region: "asia-south1",
+  vpcConnector: "e-invoice",
+  vpcConnectorEgressSettings: "ALL_TRAFFIC"
+});
+exports.app = onRequest(server);
